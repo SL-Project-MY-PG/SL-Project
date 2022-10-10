@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+form
+{
+    margin: auto auto;
+}
+.form-control
+{
+    width: 30vw;
+}
+#buttons-div
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.buttons
+{
+    margin: 1rem;
+    transition: all 0.25s;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+.buttons:hover
+{
+    transform: scale(1.2);
+    transition: all 0.25s;
+}
+h6{
+    margin: auto auto;
+    width: fit-content;
+    margin-top: 3rem;
+    /* margin-bottom: 1rem; */
+}
+h1{
+    margin: auto auto;
+    width: fit-content;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    color: white;
+}
+#signupbtn
+{
+    width: 20vw;
+    width: fit-content;
+    margin: auto auto;
+}
+.signup
+{
+    width: 15vw;
+}

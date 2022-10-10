@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/index.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <title>MY PG</title>
+</head>
+
+<body>
+    
+    <div id="index-body-container">
+        <div>
+            <h1 class="main-heading"><strong>Welcome to MY PG 👋</strong></h1>
+            <h2 class="main-heading">A place where you "Meet Your Project Guide"</h2>
+            <h1 id="role">Select your role at IITB</h1>
+        </div>
+        <div id="cards-container">
+            <div class="card">
+                <a href="{{url_for('signinFaculty')}}">
+                    <img src="../static/img/professor.gif" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">
+                        <h4>Faculty</h4>
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="{{url_for('signinStudent')}}">
+                    <img src="../static/img/student.gif" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">
+                        <h4>Student</h4>
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

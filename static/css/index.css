@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#index-body-container {
+    width: 100vw;
+    height: fit-content;
+    align-items: center;
+    justify-content: center;
+    margin: auto auto;
+}
+
+.card {
+    width: fit-content;
+    height: fit-content;
+    /* padding: 2rem; */
+    margin: 0 auto;
+}
+
+img {
+    object-fit: cover;
+    height: 100%;
+    width: 40vw;
+}
+
+.card:hover {
+    transform: scale(1.2);
+    transition: all 0.25s;
+    opacity: 1;
+    padding: 0.33rem;
+}
+
+.card {
+    transition: all 0.25s;
+    width: 50%;
+    opacity: 0.75;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+h1,
+h2 {
+    width: fit-content;
+    margin: 2rem auto;
+}
+
+#role {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    color: white;
+}
+
+h4 {
+    width: fit-content;
+    height: fit-content;
+    /* align-self: center; */
+    margin: auto auto;
+}
+
+#cards-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 80vw;
+    margin: auto auto;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    color: black;
+}
