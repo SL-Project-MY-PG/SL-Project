@@ -6,7 +6,7 @@
     font-family: 'Poppins', sans-serif;
 }
 .navbar
-{
+{   
     opacity: 0.6;
     z-index: 100000;
     transition: all 0.25s;
@@ -17,8 +17,14 @@
     transition: all 0.25s;
 }
 .navbar-nav a{
-    margin-right: 1rem;
+    margin-right: 1.2rem;
+    transition: all 0.25s;
 }
+.navbar-nav a:hover{
+    transform: scale(1.1);
+    transition: all 0.25s;
+}
+
 .navbar-nav
 {
     width: fit-content;

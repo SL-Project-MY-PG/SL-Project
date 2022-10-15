@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/studashboard.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <title>Dashboard - Student</title>
+</head>
+
+<body>
+    <!--Navigation bar-->
+    <div id="nav-placeholder" style="position: fixed; top: 0%; width: 100vw; height: fit-content;"></div>
+
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("nav.html");
+        });
+    </script>
+    <!--end of Navigation bar-->
+
+    <div id="projcontainer">
+        <h1 id="welcome" style="font-size: 2.5rem;">Research and Development projects in CSE Department</h1>
+        <h6>Stream Acronyms :
+            IS: Intellligent Systems,
+            CS: Computing Systems,
+            TS: Theoretical Systems</h6>
+
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-header">
+                Title: {{proj.title}}
+                <a href="#" class="btn btn-outline-primary btn-sm" style="margin: auto 1rem;">Apply</a>
+            </div>
+            <div class="card-body" style="padding: 0.2rem 0.5rem;">
+                Faculty name: {{proj.facname}}<br>
+                Stream: {{proj.stream}}<br>
+                Description: {{proj.desc}}<br>
+                Maximum no. of students: {{proj.nostuds}}<br>
+                Requisities: {{proj.requ}}
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div id="projcontainer">
+        <h1>Research and Development projects in CSE Department</h1>
+        <h6>Stream Acronyms :
+            IS: Intellligent Systems,
+            CS: Computing Systems,
+            TS: Theoretical Systems</h6>
+
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-header">
+                1. Title: Hand tracking, high resolution appearance modelling for human hands
+                <a href="#" class="btn btn-outline-primary btn-sm" style="margin: auto 1rem;">Apply</a>
+            </div>
+            <div class="card-body" style="padding: 0.2rem 0.5rem;">
+                Faculty name: Parag Kumar Chaudhuri<br>
+                Stream: IS<br>
+                Description:<br>
+                Maximum no. of students: 1<br>
+                Requisities: Should have programming experience. should be taking the ML and/or computer graphics
+                course.
+            </div>
+        </div>
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-header">
+                2. Title: Neural rendering for natural scenes
+                <a href="#" class="btn btn-outline-primary btn-sm" style="margin: auto 1rem;">Apply</a>
+            </div>
+            <div class="card-body" style="padding: 0.2rem 0.5rem;">
+                Faculty name: Parag Kumar Chaudhuri<br>
+                Stream: IS<br>
+                Description:<br>
+                Maximum no. of students: 1<br>
+                Requisities: Should have programming experience. should be taking the ML and/or computer graphics
+                course.
+            </div>
+        </div>
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-header">
+                3. Title: Countermeasures for Row-hammer attacks
+                <a href="#" class="btn btn-outline-primary btn-sm" style="margin: auto 1rem;">Apply</a>
+            </div>
+            <div class="card-body" style="padding: 0.2rem 0.5rem;">
+                Faculty name: Biswabandan Panda<br>
+                Stream: CS<br>
+                Description:<br>
+                Maximum no. of students: 1<br>
+                Requisities: Must be doing CS773 and good in C/C++ programming
+            </div>
+        </div>
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-header">
+                4. Title: Designing secure processors and memory hierarchies
+                <a href="#" class="btn btn-outline-primary btn-sm" style="margin: auto 1rem;">Apply</a>
+            </div>
+            <div class="card-body" style="padding: 0.2rem 0.5rem;">
+                Faculty name: Biswabandan Panda<br>
+                Stream: CS<br>
+                Description:<br>
+                Maximum no. of students: 1<br>
+                Requisities: Must be doing CS773 and good in C/C++ programming
+            </div>
+        </div>
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-header">
+                5. Title: Network/Microarchitecture interaction driven cache hierarchies for high-speed network I/O
+                <a href="#" class="btn btn-outline-primary btn-sm" style="margin: auto 1rem;">Apply</a>
+            </div>
+            <div class="card-body" style="padding: 0.2rem 0.5rem;">
+                Faculty name: Biswabandan Panda, Mythili Vutukuru<br>
+                Stream: CS<br>
+                Description:<br>
+                Maximum no. of students: 1<br>
+                Requisities: Must be doing CS773 and good in C/C++ programming
+            </div>
+        </div>
+        <div class="card" style="margin-bottom: 1rem;">
+            <div class="card-header">
+                6. Title: Scaling compiler workloads to multi-core architectures
+                <a href="#" class="btn btn-outline-primary btn-sm" style="margin: auto 1rem;">Apply</a>
+            </div>
+            <div class="card-body" style="padding: 0.2rem 0.5rem;">
+                Faculty name: Varsha Apte, Biswabandan Panda<br>
+                Stream: CS<br>
+                Description: Autograding of programs requires the compilation and execution of a large number of
+                        student-submitted programs, with the grading response expected in 'near-real-time'. Since
+                        students do the submit-evaluate cycle multiple times when close to a deadline, they also expect
+                        the response of the evaluation in near real time. Thus the autograding application needs high
+                        performance and scalability. A recent study done at IIT Bombay found that this workload's
+                        multicore scalability was poor beyond a few cores, and the analysis showed that the bottleneck
+                        was the compiler's memory requirement, resulting in a steep increase of L3 cache hits, with
+                        increasing number of cores.
+                        Since compiler as a workload that needs to be run in parallel for compiling many independent
+                        programs is a relatively new need, there does not seem to be much work done in this area. In
+                        this R&D the student will do some preliminary experiments to familiarize with the problem
+                        itself, simply 'recreate' the problem, learn the tools required to run experiments.<br>
+                    Maximum no. of students: 1<br>
+                    Requisities: Should take CS 744 and any architecture course offered
+            </div>
+        </div>
+
+    </div> -->
+
+</body>

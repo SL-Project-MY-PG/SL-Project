@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../static/css/signupstud.css">
+    <link rel="stylesheet" href="css/signupstud.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <title>Sign Up - Student</title>
 </head>
@@ -18,7 +18,7 @@
 <body>
     <!--Navigation bar-->
     <div id="nav-placeholder" style="position: fixed; top: 0%; width: 100vw; height: fit-content;"></div>
-    
+
     <script>
         $(function () {
             $("#nav-placeholder").load("nav.html");
@@ -27,7 +27,7 @@
     <!--end of Navigation bar-->
 
     <form>
-        <h1>Hello Student !</h1>
+        <h1 id="welcome">Hello Student !</h1>
         <h3 style="margin-bottom: 2rem;">Become a member of MY PG now !</h3>
         <div class="mb-3">
             <label for="exampleInputName1" class="form-label">Enter your Name</label>
@@ -65,6 +65,51 @@
                 </select>
             </div>
         </div>
+
+        <div class="row mb-3" id="cpi">
+            <label for="examplecpiInput1" class="form-label">Enter your CPI below (leave empty if Not
+                Applicable)</label>
+            <div class="row" id="row1cpi">
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Sem 1" aria-label="Sem 1">
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Sem 2" aria-label="Sem 2">
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Sem 3" aria-label="Sem 3">
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Sem 4" aria-label="Sem 4">
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Sem 5" aria-label="Sem 5">
+                </div>
+            </div>
+            <div class="row" id="row2cpi">
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Sem 6" aria-label="Sem 6">
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Sem 7" aria-label="Sem 7">
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Sem 8" aria-label="Sem 8">
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Sem 9" aria-label="Sem 9">
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Sem 10" aria-label="Sem 10">
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3" id="skillsdiv">
+            <label for="exampleInputskills1" class="form-label">Enter your Skills seperated by commas</label>
+            <input type="text" class="form-control" id="exampleInputskills1" aria-describedby="skills">
+        </div>
+
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Enter your IITB LDAP email ID</label>
             <input type="email" class="form-control" id="exampleInputEmail1" pattern=".+@iitb.ac.in"
@@ -73,11 +118,9 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Create a Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1"
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
-                oninvalid="this.setCustomValidity('Password must contain - At least 1 Uppercase, At least 1 Lowercase, At least 1 Number, At least 1 Symbol, Minimum 8 characters')"
-                oninput="this.setCustomValidity('')">
+            <input type="password" class="form-control" id="exampleInputPassword1">
         </div>
+        
         <div id="buttons-div">
             <button type="submit" class="btn btn-outline-light buttons">Submit</button>
             <button type="reset" class="btn btn-outline-dark buttons">Reset</button>
