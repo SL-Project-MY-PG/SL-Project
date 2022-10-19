@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/signupfac.css">
+    <link rel="stylesheet" href="../static/css/signupfac.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <title>Sign Up - Faculty</title>
 </head>
@@ -21,59 +21,59 @@
     
     <script>
         $(function () {
-            $("#nav-placeholder").load("nav.html");
+            $("#nav-placeholder").load("{{url_for('nav')}}");
         });
     </script>
     <!--end of Navigation bar-->
 
-    <form>
+    <form action="{{url_for('signupF')}}" method="post">
         <h1 id="welcome">Welcome Faculty !</h1>
         <h3 style="margin-bottom: 2rem;">Become a member of MY PG now !</h3>
         <div class="mb-3">
             <label for="exampleInputName1" class="form-label">Enter your Name</label>
-            <input class="form-control" type="text" aria-label="default input example" required>
+            <input class="form-control" name="name" type="text" aria-label="default input example" required>
         </div>
         <div class="mb-3">
             <label for="exampleInputDept1" class="form-label">Select your Academic Division</label>
             <div class="input-group mb-3">
-                <select class="form-select" id="inputGroupSelect02" required>
+                <select name="academicdivision" class="form-select" id="inputGroupSelect02" required>
                     <option disabled selected>-- Departments --</option>
-                    <option value="1">Aerospace Engineering</option>
-                    <option value="2">Biosciences and Bioengineering</option>
-                    <option value="3">Chemical Engineering</option>
-                    <option value="4">Chemistry</option>
-                    <option value="5">Civil Engineering</option>
-                    <option value="6">Computer Science & Engineering</option>
-                    <option value="7">Earth Sciences</option>
-                    <option value="8">Electrical Engineering</option>
-                    <option value="9">Energy Science and Engineering</option>
-                    <option value="10">Environmental Science and Engineering (ESED)</option>
-                    <option value="11">Humanities & Social Sciences</option>
-                    <option value="12">Mathematics</option>
-                    <option value="13">Mechanical Engineering</option>
-                    <option value="14">Metallurgical Engineering & Materials Science</option>
-                    <option value="15">Physics</option>
+                    <option value="Aerospace Engineering">Aerospace Engineering</option>
+                    <option value="Biosciences and Bioengineering">Biosciences and Bioengineering</option>
+                    <option value="Chemical Engineering">Chemical Engineering</option>
+                    <option value="Chemistry">Chemistry</option>
+                    <option value="Civil Engineering">Civil Engineering</option>
+                    <option value="Computer Science & Engineering">Computer Science & Engineering</option>
+                    <option value="Earth Sciences">Earth Sciences</option>
+                    <option value="Electrical Engineering">Electrical Engineering</option>
+                    <option value="Energy Science and Engineering">Energy Science and Engineering</option>
+                    <option value="Environmental Science and Engineering (ESED)">Environmental Science and Engineering (ESED)</option>
+                    <option value="Humanities & Social Sciences">Humanities & Social Sciences</option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="Mechanical Engineering">Mechanical Engineering</option>
+                    <option value="Metallurgical Engineering & Materials Science">Metallurgical Engineering & Materials Science</option>
+                    <option value="Physics">Physics</option>
                     <option disabled>-- Schools --</option>
-                    <option value="16">Desai Sethi School of Entrepreneurship (DSSE)</option>
-                    <option value="17">IDC School of Design (IDC SoD)</option>
-                    <option value="18">Shailesh J. Mehta School of Management (SJMSoM)</option>
+                    <option value="Desai Sethi School of Entrepreneurship (DSSE)">Desai Sethi School of Entrepreneurship (DSSE)</option>
+                    <option value="IDC School of Design (IDC SoD)">IDC School of Design (IDC SoD)</option>
+                    <option value="Shailesh J. Mehta School of Management (SJMSoM)">Shailesh J. Mehta School of Management (SJMSoM)</option>
                     <option disabled>-- Interdisciplinary Programs --</option>
-                    <option value="19">Climate Studies</option>
-                    <option value="20">Educational Technology</option>
-                    <option value="21">Industrial Engineering and Operations Research (IEOR)</option>
-                    <option value="22">Systems and Control Engineering</option>
+                    <option value="Climate Studies">Climate Studies</option>
+                    <option value="Educational Technology">Educational Technology</option>
+                    <option value="Industrial Engineering and Operations Research (IEOR)">Industrial Engineering and Operations Research (IEOR)</option>
+                    <option value="Systems and Control Engineering">Systems and Control Engineering</option>
                 </select>
             </div>
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Enter your IITB LDAP email ID</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" pattern=".+@iitb.ac.in"
+            <input type="email" class="form-control" name="exampleInputEmail1" id="exampleInputEmail1" pattern=".+@iitb.ac.in"
                 oninvalid="this.setCustomValidity('Only IITB LDAP email ID can be used for login')"
                 oninput="this.setCustomValidity('')" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Create a Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1"
+            <input type="password" class="form-control" id="exampleInputPassword1" name="exampleInputPassword1"
                 pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
                 oninvalid="this.setCustomValidity('Password must contain - At least 1 Uppercase, At least 1 Lowercase, At least 1 Number, At least 1 Symbol, Minimum 8 characters')"
                 oninput="this.setCustomValidity('')">

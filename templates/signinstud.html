@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/signinstud.css">
+    <link rel="stylesheet" href="../static/css/signinstud.css">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <title>Sign in - Student</title>
 </head>
@@ -21,26 +21,23 @@
     
     <script>
         $(function () {
-            $("#nav-placeholder").load("nav.html");
+            $("#nav-placeholder").load("{{url_for('nav')}}");
         });
     </script>
     <!--end of Navigation bar-->
 
-    <form>
+    <form action="{{url_for('loginStudent')}}" method="post">
         <h1 style="margin-bottom: 2rem;" id="welcome">Hello Student !</h1>
         <h4 style="margin: auto auto; margin-bottom: 2rem; width: fit-content;">{{message}}</h4>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Enter your IITB LDAP email ID</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" pattern=".+@iitb.ac.in"
+            <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" pattern=".+@iitb.ac.in"
                 oninvalid="this.setCustomValidity('Only IITB LDAP email ID can be used for login')"
                 oninput="this.setCustomValidity('')" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Enter your Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1"
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,}$"
-                oninvalid="this.setCustomValidity('Password must contain - At least 1 Uppercase, At least 1 Lowercase, At least 1 Number, At least 1 Symbol, Minimum 8 characters')"
-                oninput="this.setCustomValidity('')">
+            <input type="password" class="form-control" id="exampleInputPassword1" name="exampleInputPassword1" required>
         </div>
         <div id="buttons-div">
             <button type="submit" class="btn btn-outline-light buttons">Submit</button>
@@ -48,7 +45,7 @@
         </div>
         <h6>New to MY PG ? Tap below to create an account</h6>
         <div id="signupbtn">
-            <a href="./signupstud.html" class="btn btn-secondary buttons signup">Sign Up</a>
+            <a href="{{url_for('signupStudent')}}" class="btn btn-secondary buttons signup">Sign Up</a>
         </div>
     </form>
 </body>

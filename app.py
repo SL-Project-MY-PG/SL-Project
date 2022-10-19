@@ -9,7 +9,7 @@ import string
 import random
 from werkzeug.utils import secure_filename
 import os
-from database import db,User
+from database import db,User,Faculty,Project
 from flask_mail import Mail
 
 
@@ -17,6 +17,7 @@ app=Flask(__name__)
 app.secret_key='mypg'
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:saksham16@localhost/mypg'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 # app.config.update(
 #     MAIL_SERVER = 'smtp.gmail.com',
 #     MAIL_PORT = '465',
@@ -39,9 +40,21 @@ def index():
 def signinStudent():
     return render_template("signinstud.html")
 
+@app.route("/nav", methods = ['GET'])
+def nav():
+    return render_template("nav.html")
+
+@app.route("/signupStudent", methods = ['GET'])
+def signupStudent():
+    return render_template("signupstud.html")
+
 @app.route("/signinFaculty", methods = ['GET'])
 def signinFaculty():
     return render_template("signinfac.html")
+
+@app.route("/signupFaculty", methods = ['GET'])
+def signupFaculty():
+    return render_template("signupfac.html")
 
 @app.route("/loginStudent", methods = ['POST'])
 def loginStudent():
@@ -51,9 +64,58 @@ def loginStudent():
         getinfo = db.session.query(User).filter_by(email=email,passw=passw).count()
         if getinfo==1:
             session['logged_in'] = True
-            return ('dashboard')
+            getprojinfo=db.session.query(Project).all()
+            return render_template('studashboard.html', projects=getprojinfo)
         else:
             return render_template('signinstud.html', message="Username/Password Incorrect")
+
+@app.route("/signupS", methods = ['POST'])
+def signupS():
+    if(request.method=='POST'):
+        name=request.form.get('name')
+        academicdiv=request.form.get('academicdivision')
+        sem1marks=request.form.get('sem1')
+        sem2marks=request.form.get('sem2')
+        sem3marks=request.form.get('sem3')
+        sem4marks=request.form.get('sem4')
+        sem5marks=request.form.get('sem5')
+        sem6marks=request.form.get('sem6')
+        sem7marks=request.form.get('sem7')
+        sem8marks=request.form.get('sem8')
+        sem9marks=request.form.get('sem9')
+        sem10marks=request.form.get('sem10')
+        skills=request.form.get('skills')
+        email=request.form.get('exampleInputEmail1')
+        passw = request.form.get('exampleInputPassword1')
+        user=User(passw=passw,name=name,ema=email,academic=academicdiv,sem1=sem1marks,sem2=sem2marks,sem3=sem3marks,sem4=sem4marks,sem5=sem5marks,sem6=sem6marks,sem7=sem7marks,sem8=sem8marks,sem9=sem9marks,sem10=sem10marks,skills=skills)
+        db.session.add(user)
+        db.session.commit()
+        return render_template("index.html",message="Account created. Now you Can Login")
+        
+@app.route("/loginFaculty", methods = ['POST'])
+def loginFaculty():
+    if(request.method=='POST'):
+        email = request.form.get('exampleInputEmail1')
+        passw = request.form.get('exampleInputPassword1')
+        getinfo = db.session.query(Faculty).filter_by(email=email,passw=passw).count()
+        if getinfo==1:
+            session['logged_in'] = True
+            return ('facdashboard.html')
+        else:
+            return render_template('signinfac.html', message="Username/Password Incorrect")
+
+@app.route("/signupF", methods = ['POST'])
+def signupF():
+    if(request.method=='POST'):
+        name=request.form.get('name')
+        academicdiv=request.form.get('academicdivision')
+        email=request.form.get('exampleInputEmail1')
+        passw = request.form.get('exampleInputPassword1')
+        faculty=Faculty(passw=passw,name=name,email=email,academic=academicdiv)
+        db.session.add(faculty)
+        db.session.commit()
+        return render_template("index.html",message="Account created. Now you Can Login")
+
 
 
 # @app.route("/signup", methods = ['GET', 'POST'])
