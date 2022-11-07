@@ -15,7 +15,7 @@ from database import db,User,Faculty,Project
 
 app=Flask(__name__)
 app.secret_key='mypg'
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://ravtqajfctzruz:80350636fe7290921d2a99c51bad963faf8318267ca370abfb331fb42981e54d@ec2-54-163-34-107.compute-1.amazonaws.com:5432/dab7mof4fvdib4'
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://euagmhwjjvvmlz:07ac7058827bcbb66f09f61807631b71da95537b8b2840d0a40b0ceca1b77b88@ec2-54-163-34-107.compute-1.amazonaws.com:5432/dj5uolrhsug0j'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 # app.config.update(
@@ -55,6 +55,10 @@ def signinFaculty():
 @app.route("/signupFaculty", methods = ['GET'])
 def signupFaculty():
     return render_template("signupfac.html")
+
+@app.route("/devs", methods = ['GET'])
+def devs():
+    return render_template("devs.html")
 
 @app.route("/loginStudent", methods = ['POST'])
 def loginStudent():
@@ -100,7 +104,7 @@ def loginFaculty():
         getinfo = db.session.query(Faculty).filter_by(email=email,passw=passw).count()
         if getinfo==1:
             session['logged_in'] = True
-            return ('facdashboard.html')
+            return render_template('facdashboard.html')
         else:
             return render_template('signinfac.html', message="Username/Password Incorrect")
 
@@ -116,7 +120,21 @@ def signupF():
         db.session.commit()
         return render_template("index.html",message="Account created. Now you Can Login")
 
-
+@app.route("/submitProject", methods = ['POST'])
+def submitProject():
+    if(request.method=='POST'):
+        title=request.form.get('proj.title')
+        stream=request.form.get('proj.stream')
+        description=request.form.get('proj.description')
+        maxstu = request.form.get('proj.maxnostu')
+        prereq = request.form.get('proj.requisites')
+        facu= request.form.get('proj.facultyname')
+        pro=Project(ptitle=title,desc=description,stream=stream,facultyname=facu,maxnostu=maxstu,requisites=prereq)
+        db.session.add(pro)
+        db.session.commit()
+        return render_template("facdashboard.html")
+    else:
+        return render_template("index.html")
 
 # @app.route("/signup", methods = ['GET', 'POST'])
 # def signup():

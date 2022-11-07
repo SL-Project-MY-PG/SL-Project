@@ -27,14 +27,14 @@
     <!--end of Navigation bar-->
 
     <div id="container">
-        <div id="buttons-div">
+        <div id="buttons-div" style="margin-top: 4rem;">
             <a class="btn btn-outline-dark buttons" data-target=".div1">Create New Project</a>
             <a class="btn btn-outline-dark buttons" data-target=".div2">Review Applications</a>
         </div>
 
         <div id="content">
             <div class="div1 divs" style="display: none;">
-                <form action="{{url_for('signupF')}}" method="post">
+                <form action="{{url_for('submitProject')}}" method="post">
                     <h3 style="margin:2rem auto;">Please enter the project details</h3>
                     <div class="mb-3">
                         <label for="exampleInputName1" class="form-label">Project title</label>
@@ -42,9 +42,12 @@
                             required>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputName1" class="form-label">Stream (IS: Intellligent Systems,
-                            CS: Computing Systems,
-                            TS: Theoretical Systems)</label>
+                        <label for="exampleInputName1" class="form-label">Enter guide names (seperated by commas)</label>
+                        <input class="form-control" name="proj.facultyname" type="text"
+                            aria-label="default input example" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputName1" class="form-label">Stream</label>
                         <input class="form-control" name="proj.stream" type="text" aria-label="default input example"
                             required>
                     </div>
@@ -65,27 +68,34 @@
                     </div>
 
                     <div id="buttons-div">
-                        <a type="submit" class="btn btn-outline-dark buttons">Submit</a>
-                        <a type="reset" class="btn btn-outline-dark buttons">Reset</a>
+                        <button type="submit" class="btn btn-outline-dark buttons" id="submitForm">Submit</button>
+                        <button type="reset" class="btn btn-outline-dark buttons">Reset</button>
                     </div>
                 </form>
             </div>
+            <script>
+                $("#submitForm").click(function () {
+                    alert("Project created successfully");
+                });
+            </script>
 
             <div class="div2 divs" style="display: none;">
-                <!-- {% for stud in students %}
+                {% for stud in students %}
                 <div class="card" style="margin-bottom: 1rem;">
                     <div class="card-header">
-                        Student Name: {{proj.title}}
+                        Project name: {{proj.title}}
                     </div>
                     <div class="card-body" style="padding: 0.2rem 0.5rem;">
-                        Faculty name: {{proj.facultyname}}<br>
-                        Stream: {{proj.stream}}<br>
-                        Description: {{proj.description}}<br>
-                        Maximum no. of students: {{proj.maxnostu}}<br>
-                        Requisities: {{proj.requisites}}
+                        Student name: {{stud.name}}<br>
+                        Student email: {{stud.email}}<br>
+                        Acadeemic division: {{stud.academicdiv}}<br>
+                        Semester wise marks:
+                        {{stud.sem1marks}},{{stud.sem2marks}},{{stud.sem3marks}},{{stud.sem4marks}},{{stud.sem5marks}},{{stud.sem6marks}},{{stud.sem7marks}},{{stud.sem8marks}},{{stud.sem9marks}},{{stud.sem10marks}}<br>
+                        Skills: {{stud.skills}}
+                        <!-- DISPLAY SOP ALSO -->
                     </div>
                 </div>
-                {% endfor %} -->
+                {% endfor %}
             </div>
         </div>
     </div>
