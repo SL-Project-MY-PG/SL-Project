@@ -20,7 +20,7 @@ class User(db.Model):
     sem9marks=db.Column(db.String(5))
     sem10marks=db.Column(db.String(5))
     skills=db.Column(db.String(1024))
-    pid = db.relationship("projectdetails", backref=backref("project application", uselist=False))
+    #pid = db.relationship("projectdetails", backref=backref("project application", uselist=False))
 
     def __init__(self,passw,name,ema,academic,sem1,sem2,sem3,sem4,sem5,sem6,sem7,sem8,sem9,sem10,skills):
         self.name=name
@@ -48,7 +48,7 @@ class Faculty(db.Model):
     passw=db.Column(db.String(120), nullable=False)
     academicdiv=db.Column(db.String(256))
     #posts=db.relationship('Post',backref='user')
-    pid = db.relationship("projectdetails", backref=backref("project application", uselist=False))
+    #pid = db.relationship("projectdetails", backref=backref("project application", uselist=False))
 
 
     def __init__(self,passw,name,email,academic):
@@ -70,7 +70,7 @@ class Project(db.Model):
     # active=db.Column(db.Integer)
     #uid=db.Column(db.Integer,db.ForeignKey('user.uid'),nullable=False)
     #lik=db.relationship('user',secondary=liketab)
-    pid = db.relationship("projectdetails", backref=backref("project application", uselist=False))
+    #pid = db.relationship("projectdetails", backref="project application", uselist=False)
 
 
     def __init__(self, ptitle,desc,stream,facultyname,maxnostu,requisites):
