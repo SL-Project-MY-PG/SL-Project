@@ -7,15 +7,15 @@ import smtplib
 import requests
 import string
 import random
-from werkzeug.utils import secure_filename
+# from werkzeug.utils import secure_filename
 import os
 from database import db,User,Faculty,Project
-from flask_mail import Mail
+# from flask_mail import Mail
 
 
 app=Flask(__name__)
 app.secret_key='mypg'
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:saksham16@localhost/mypg'
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://ravtqajfctzruz:80350636fe7290921d2a99c51bad963faf8318267ca370abfb331fb42981e54d@ec2-54-163-34-107.compute-1.amazonaws.com:5432/dab7mof4fvdib4'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 # app.config.update(

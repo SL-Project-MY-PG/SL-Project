@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+
+h1{
+    margin: auto auto;
+    width: fit-content;
+    padding-bottom: 2rem;
+    padding-top: 4rem;
+}
+h1{
+    margin: auto auto;
+    width: fit-content;
+    padding-bottom: 2rem;
+    padding-top: 1rem;
+}
+.apply
+{
+    text-decoration: none;
+}
+#projcontainer
+{
+    width: 90vw;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+}
+#welcome
+{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 3.5rem;
+}
+#buttons-div
+{
+    width: 50vw;
+    margin: 1rem auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.buttons
+{
+    padding: 0.7rem;
+    transition: all 0.25s;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    height: fit-content;
+}
+.buttons:hover
+{
+    transform: scale(1.2);
+    transition: all 0.25s;
+}
+#container
+{
+    display: grid;
+    grid-template-rows: 1fr 9fr;
+    width: 90vw;
+    height: 100vh;
+    margin: 0 auto;
+}
+.divs
+{
+    height: 85vh;
+    width: 90vw;
+    margin: auto auto;
+}
+form
+{
+    width: fit-content;
+    margin: auto auto;
+}
+.form-control
+{
+    width: 60vw;
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../static/css/facdashboard.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <title>Dashboard - Faculty</title>
+</head>
+
+<body>
+    <!--Navigation bar-->
+    <div id="nav-placeholder" style="position: fixed; top: 0%; width: 100vw; height: fit-content;"></div>
+
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("{{url_for('nav')}}");
+        });
+    </script>
+    <!--end of Navigation bar-->
+
+    <div id="container">
+        <div id="buttons-div">
+            <a class="btn btn-outline-dark buttons" data-target=".div1">Create New Project</a>
+            <a class="btn btn-outline-dark buttons" data-target=".div2">Review Applications</a>
+        </div>
+
+        <div id="content">
+            <div class="div1 divs" style="display: none;">
+                <form action="{{url_for('signupF')}}" method="post">
+                    <h3 style="margin:2rem auto;">Please enter the project details</h3>
+                    <div class="mb-3">
+                        <label for="exampleInputName1" class="form-label">Project title</label>
+                        <input class="form-control" name="proj.title" type="text" aria-label="default input example"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputName1" class="form-label">Stream (IS: Intellligent Systems,
+                            CS: Computing Systems,
+                            TS: Theoretical Systems)</label>
+                        <input class="form-control" name="proj.stream" type="text" aria-label="default input example"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputName1" class="form-label">Description</label>
+                        <input class="form-control" name="proj.description" type="text"
+                            aria-label="default input example" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputName1" class="form-label">Maximum number of students required</label>
+                        <input class="form-control" name="proj.maxnostu" type="text" aria-label="default input example"
+                            required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputName1" class="form-label">Requisites</label>
+                        <input class="form-control" name="proj.requisites" type="text"
+                            aria-label="default input example" required>
+                    </div>
+
+                    <div id="buttons-div">
+                        <a type="submit" class="btn btn-outline-dark buttons">Submit</a>
+                        <a type="reset" class="btn btn-outline-dark buttons">Reset</a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="div2 divs" style="display: none;">
+                <!-- {% for stud in students %}
+                <div class="card" style="margin-bottom: 1rem;">
+                    <div class="card-header">
+                        Student Name: {{proj.title}}
+                    </div>
+                    <div class="card-body" style="padding: 0.2rem 0.5rem;">
+                        Faculty name: {{proj.facultyname}}<br>
+                        Stream: {{proj.stream}}<br>
+                        Description: {{proj.description}}<br>
+                        Maximum no. of students: {{proj.maxnostu}}<br>
+                        Requisities: {{proj.requisites}}
+                    </div>
+                </div>
+                {% endfor %} -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            $('.buttons').on('click', function () {
+                var target = $(this).data('target');
+                $('.divs').not(target).slideUp();
+                $(target).slideDown();
+            });
+        });
+    </script>
+
+
+</body>
