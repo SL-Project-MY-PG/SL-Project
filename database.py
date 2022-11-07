@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 db=SQLAlchemy()
 # follows=db.Table('follows',db.Column('uid_who',db.Integer,db.ForeignKey('user.uid'),primary_key=True),db.Column('uid_whom',db.Integer,db.ForeignKey('user.uid'),primary_key=True))
-# liketab=db.Table('liketab',db.Column('uid_who',db.Integer,db.ForeignKey('user.uid'),primary_key=True),db.Column('pid',db.Integer,db.ForeignKey('post.pid'),primary_key=True),db.Column('like_date',db.DateTime))
+projectdetails=db.Table('project application',db.Column('project id',db.Integer,db.ForeignKey('project.pid'),primary_key=True),db.Column('faculty id',db.Integer,db.ForeignKey('faculty.userid'),primary_key=True),db.Column('user id',db.Integer,db.ForeignKey('user.userid'),primary_key=True),db.Column('SOP',db.String(2000),db.ForeignKey('faculty.userid')))
 class User(db.Model):
     __tablename__="user"
     userid=db.Column(db.Integer,primary_key=True, unique=True,autoincrement=True)
@@ -20,7 +20,7 @@ class User(db.Model):
     sem9marks=db.Column(db.String(5))
     sem10marks=db.Column(db.String(5))
     skills=db.Column(db.String(1024))
-    #posts=db.relationship('Post',backref='user')
+    pid = db.relationship("projectdetails", backref=backref("project application", uselist=False))
 
     def __init__(self,passw,name,ema,academic,sem1,sem2,sem3,sem4,sem5,sem6,sem7,sem8,sem9,sem10,skills):
         self.name=name
@@ -48,6 +48,8 @@ class Faculty(db.Model):
     passw=db.Column(db.String(120), nullable=False)
     academicdiv=db.Column(db.String(256))
     #posts=db.relationship('Post',backref='user')
+    pid = db.relationship("projectdetails", backref=backref("project application", uselist=False))
+
 
     def __init__(self,passw,name,email,academic):
         self.name=name
@@ -68,6 +70,8 @@ class Project(db.Model):
     # active=db.Column(db.Integer)
     #uid=db.Column(db.Integer,db.ForeignKey('user.uid'),nullable=False)
     #lik=db.relationship('user',secondary=liketab)
+    pid = db.relationship("projectdetails", backref=backref("project application", uselist=False))
+
 
     def __init__(self, ptitle,desc,stream,facultyname,maxnostu,requisites):
         self.title=ptitle
