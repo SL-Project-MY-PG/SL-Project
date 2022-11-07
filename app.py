@@ -94,7 +94,7 @@ def signupS():
         user=User(passw=passw,name=name,ema=email,academic=academicdiv,sem1=sem1marks,sem2=sem2marks,sem3=sem3marks,sem4=sem4marks,sem5=sem5marks,sem6=sem6marks,sem7=sem7marks,sem8=sem8marks,sem9=sem9marks,sem10=sem10marks,skills=skills)
         db.session.add(user)
         db.session.commit()
-        return render_template("index.html",message="Account created. Now you Can Login")
+        return render_template("signinstud.html",message="Account created. Now you can Login")
         
 @app.route("/loginFaculty", methods = ['POST'])
 def loginFaculty():
@@ -118,7 +118,7 @@ def signupF():
         faculty=Faculty(passw=passw,name=name,email=email,academic=academicdiv)
         db.session.add(faculty)
         db.session.commit()
-        return render_template("index.html",message="Account created. Now you Can Login")
+        return render_template("signinfac.html",message="Account created. Now you can Login")
 
 @app.route("/submitProject", methods = ['POST'])
 def submitProject():
