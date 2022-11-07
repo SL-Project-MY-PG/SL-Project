@@ -1,7 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 db=SQLAlchemy()
 # follows=db.Table('follows',db.Column('uid_who',db.Integer,db.ForeignKey('user.uid'),primary_key=True),db.Column('uid_whom',db.Integer,db.ForeignKey('user.uid'),primary_key=True))
-projectdetails=db.Table('project application',db.Column('project id',db.Integer,db.ForeignKey('project.pid'),primary_key=True),db.Column('faculty id',db.Integer,db.ForeignKey('faculty.userid'),primary_key=True),db.Column('user id',db.Integer,db.ForeignKey('user.userid'),primary_key=True),db.Column('SOP',db.String(2000),db.ForeignKey('faculty.userid')))
+#projectdetails=db.Table('project application',db.Column('project id',db.Integer,db.ForeignKey('project.pid'),primary_key=True),db.Column('faculty id',db.Integer,db.ForeignKey('faculty.userid'),primary_key=True),db.Column('user id',db.Integer,db.ForeignKey('user.userid'),primary_key=True),db.Column('SOP',db.String(2000),db.ForeignKey('faculty.userid')))
 class User(db.Model):
     __tablename__="user"
     userid=db.Column(db.Integer,primary_key=True, unique=True,autoincrement=True)
