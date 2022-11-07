@@ -81,4 +81,6 @@ class Project(db.Model):
         self.maxnostu=maxnostu
         self.requisites=requisites
 
+
+
     
