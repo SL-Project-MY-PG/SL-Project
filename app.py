@@ -9,13 +9,14 @@ import string
 import random
 # from werkzeug.utils import secure_filename
 import os
-from database import db,User,Faculty,Project
+from database import db,User,Faculty,Project,projectdetails
 # from flask_mail import Mail
 
 
 app=Flask(__name__)
 app.secret_key='mypg'
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://euagmhwjjvvmlz:07ac7058827bcbb66f09f61807631b71da95537b8b2840d0a40b0ceca1b77b88@ec2-54-163-34-107.compute-1.amazonaws.com:5432/dj5uolrhsug0j'
+#app.config['SQLALCHEMY_DATABASE_URI']='postgresql://euagmhwjjvvmlz:07ac7058827bcbb66f09f61807631b71da95537b8b2840d0a40b0ceca1b77b88@ec2-54-163-34-107.compute-1.amazonaws.com:5432/dj5uolrhsug0j'
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:mypg@localhost/mypg'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 # app.config.update(
@@ -69,7 +70,12 @@ def loginStudent():
         if getinfo==1:
             session['logged_in'] = True
             getprojinfo=db.session.query(Project).all()
-            return render_template('studashboard.html', projects=getprojinfo)
+            # import pdb;pdb.set_trace()
+            a = db.session.query(User).filter_by(email=email,passw=passw).first()
+            for i in range(len(a.projects)):
+                if a.projects[i] in getprojinfo:
+                    getprojinfo.remove(a.projects[i])
+            return render_template('studashboard.html', projects=getprojinfo,stud=a)
         else:
             return render_template('signinstud.html', message="Username/Password Incorrect")
 
@@ -104,7 +110,9 @@ def loginFaculty():
         getinfo = db.session.query(Faculty).filter_by(email=email,passw=passw).count()
         if getinfo==1:
             session['logged_in'] = True
-            return render_template('facdashboard.html')
+            ab=db.session.query(Faculty).filter_by(email=email,passw=passw).first()
+            print(ab.userid)
+            return render_template('facdashboard.html',facid=ab)
         else:
             return render_template('signinfac.html', message="Username/Password Incorrect")
 
@@ -123,18 +131,44 @@ def signupF():
 @app.route("/submitProject", methods = ['POST'])
 def submitProject():
     if(request.method=='POST'):
+        faci=request.form.get('facid')
         title=request.form.get('proj.title')
         stream=request.form.get('proj.stream')
         description=request.form.get('proj.description')
         maxstu = request.form.get('proj.maxnostu')
         prereq = request.form.get('proj.requisites')
         facu= request.form.get('proj.facultyname')
-        pro=Project(ptitle=title,desc=description,stream=stream,facultyname=facu,maxnostu=maxstu,requisites=prereq)
+        pro=Project(ptitle=title,desc=description,stream=stream,facultyname=facu,maxnostu=maxstu,requisites=prereq,fac=faci)
         db.session.add(pro)
         db.session.commit()
-        return render_template("facdashboard.html")
+        return render_template("facdashboard.html", facid=faci)
     else:
         return render_template("index.html")
+
+
+@app.route("/applyforProject/<data>", methods = ['POST'])
+def applyforProject(data):
+    if(request.method=='POST'):
+        sop=request.form.get('sop')
+        proid = request.form.get('projectid')
+        #import pdb;pdb.set_trace()
+        print(proid)
+        print(sop)
+        userobject=db.session.query(User).filter_by(userid=data).first()
+        projectobject=db.session.query(Project).filter_by(pid=proid).first()
+        print(projectobject.proid)
+        application = projectdetails.insert().values(project_id = proid,user_id = data ,SOP = sop, Shortlisted=0)
+        db.session.execute(application)
+        db.session.commit()
+        getprojinfo=db.session.query(Project).all()
+        a = db.session.query(User).filter_by(userid=data).first()
+        for i in range(len(a.projects)):
+            if a.projects[i] in getprojinfo:
+                getprojinfo.remove(a.projects[i])
+        return render_template('studashboard.html', projects=getprojinfo,stud=a)
+    else:
+        return render_template("index.html")
+
 
 # @app.route("/signup", methods = ['GET', 'POST'])
 # def signup():

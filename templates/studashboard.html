@@ -28,18 +28,15 @@
 
     <div id="projcontainer">
         <div style="height: 15vh;">
-            <h1 id="welcome" style="font-size: 2.5rem; margin-top: 2rem;">Research and Development projects in CSE Department</h1>
+            <h1 id="welcome" style="font-size: 2.5rem; margin-top: 2rem;">Research and Development projects at IIT
+                Bombay</h1>
         </div>
         <div>
-            <h6>Stream Acronyms :
-                IS: Intellligent Systems,
-                CS: Computing Systems,
-                TS: Theoretical Systems</h6>
             {% for proj in projects %}
             <div class="card" style="margin-bottom: 1rem;">
                 <div class="card-header">
                     Title: {{proj.title}}
-                    <button data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    <button data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{proj.pid}}"
                         class="btn btn-outline-primary btn-sm" style="margin: auto 1rem;">Apply</button>
                 </div>
                 <div class="card-body" style="padding: 0.2rem 0.5rem;">
@@ -48,14 +45,40 @@
                     Description: {{proj.description}}<br>
                     Maximum no. of students: {{proj.maxnostu}}<br>
                     Requisities: {{proj.requisites}}
+                    
                 </div>
             </div>
+            <form action="{{url_for('applyforProject',data= stud.userid)}}" method="post">
+            <div class="modal fade" id="staticBackdrop_{{proj.pid}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title fs-5" id="staticBackdropLabel">Enter your statement of purpose (SOP)
+                            </h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <textarea class="form-control" name="sop" id="sop" rows="10"></textarea>
+                            </div>
+                            <!-- <input type="number" name="projectid" value="{{proj.pid}}"> -->
+                            <script>console.log("{{proj.pid}}")</script>
+                            <input type="text" name="projectid" style="display: none;" value="{{proj.pid}}">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
             {% endfor %}
         </div>
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
@@ -65,7 +88,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <textarea class="form-control" id="sop" rows="10"></textarea>
+                        <textarea class="form-control" name="sop" id="sop" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <textarea class="form-control" name="sop" id="sop" rows="10"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -73,7 +101,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
     <!-- <div id="projcontainer">

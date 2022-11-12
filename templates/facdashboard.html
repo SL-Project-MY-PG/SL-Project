@@ -36,6 +36,10 @@
             <div class="div1 divs" style="display: none;">
                 <form action="{{url_for('submitProject')}}" method="post">
                     <h3 style="margin:2rem auto;">Please enter the project details</h3>
+                    <div class="mb-3" style="display: none;">
+                        <label for="exampleInputName1" class="form-label">Project title</label>
+                        <input class="form-control" name="facid" type="text" value="{{facid.userid}}" aria-label="default input example">
+                    </div>
                     <div class="mb-3">
                         <label for="exampleInputName1" class="form-label">Project title</label>
                         <input class="form-control" name="proj.title" type="text" aria-label="default input example"
