@@ -111,8 +111,12 @@ def loginFaculty():
         if getinfo==1:
             session['logged_in'] = True
             ab=db.session.query(Faculty).filter_by(email=email,passw=passw).first()
-            print(ab.userid)
-            return render_template('facdashboard.html',facid=ab)
+            sopsarray=dict()
+            for projects in ab.proid:       #For each project of faculty we extract student.
+                sops=db.session.query(projectdetails).filter_by(project_id=projects.pid).all()
+                for i in sops:
+                    sopsarray[(i[0],i[1])]=i[2]
+            return render_template('facdashboard.html',facid=ab,soparray=sopsarray)
         else:
             return render_template('signinfac.html', message="Username/Password Incorrect")
 

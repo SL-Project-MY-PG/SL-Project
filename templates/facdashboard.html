@@ -84,20 +84,23 @@
             </script>
 
             <div class="div2 divs" style="display: none;">
-                {% for stud in students %}
+                {% for projects in facid.proid %}
                 <div class="card" style="margin-bottom: 1rem;">
                     <div class="card-header">
-                        Project name: {{proj.title}}
+                        Project name: {{projects.title}}
                     </div>
+                    {% for stud in projects.users %}
                     <div class="card-body" style="padding: 0.2rem 0.5rem;">
                         Student name: {{stud.name}}<br>
                         Student email: {{stud.email}}<br>
                         Acadeemic division: {{stud.academicdiv}}<br>
                         Semester wise marks:
                         {{stud.sem1marks}},{{stud.sem2marks}},{{stud.sem3marks}},{{stud.sem4marks}},{{stud.sem5marks}},{{stud.sem6marks}},{{stud.sem7marks}},{{stud.sem8marks}},{{stud.sem9marks}},{{stud.sem10marks}}<br>
-                        Skills: {{stud.skills}}
-                        <!-- DISPLAY SOP ALSO -->
+                        Skills: {{stud.skills}}<br>
+                        SOP : {{ soparray[(projects.pid,stud.userid)] }}
+                        <hr>
                     </div>
+                    {% endfor %}
                 </div>
                 {% endfor %}
             </div>
