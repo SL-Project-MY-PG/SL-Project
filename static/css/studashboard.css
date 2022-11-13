@@ -11,13 +11,16 @@ body {
     width: 100vw;
     height: 100vh;
     display: flex;
+    background: url(../img/whitebg1.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 h1{
     margin: auto auto;
     width: fit-content;
-    padding-bottom: 2rem;
-    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 .apply
 {
@@ -26,7 +29,6 @@ h1{
 #projcontainer
 {
     width: 90vw;
-    margin: 2rem auto;
     display: flex;
     flex-direction: column;
 }
@@ -34,4 +36,49 @@ h1{
 {
     font-family: 'Montserrat', sans-serif;
     font-size: 3.5rem;
+}
+#buttons-div
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 1rem auto;
+    width: 50vw;
+}
+.buttons
+{
+    padding: 0.7rem;
+    transition: all 0.25s !important;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    height: fit-content;
+}
+.buttons:hover
+{
+    transform: scale(1.2);
+    /* transition: all 0.25s; */
+}
+#container
+{
+    display: grid;
+    grid-template-rows: 1fr 9fr;
+    width: 90vw;
+    height: 100vh;
+    margin: 0 auto;
+}
+.divs
+{
+    height: 85vh;
+    width: 90vw;
+    margin: auto auto;
+    margin: 1rem auto;
+}
+form
+{
+    width: fit-content;
+    margin: auto auto;
+}
+.form-control
+{
+    width: 60vw;
 }

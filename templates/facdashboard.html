@@ -17,7 +17,7 @@
 
 <body>
     <!--Navigation bar-->
-    <div id="nav-placeholder" style="position: fixed; top: 0%; width: 100vw; height: fit-content;"></div>
+    <div id="nav-placeholder" style="position: fixed; top: 0; width: 100vw; height: fit-content; z-index: 99999 !important;"></div>
 
     <script>
         $(function () {
@@ -35,7 +35,9 @@
         <div id="content">
             <div class="div1 divs" style="display: none;">
                 <form action="{{url_for('submitProject')}}" method="post">
-                    <h3 style="margin:2rem auto;">Please enter the project details</h3>
+                    <div>
+                        <h1 id="welcome" style="font-size: 2rem;">Enter the Project details</h1>
+                    </div>
                     <div class="mb-3" style="display: none;">
                         <label for="exampleInputName1" class="form-label">Project title</label>
                         <input class="form-control" name="facid" type="text" value="{{facid.userid}}" aria-label="default input example">
@@ -72,33 +74,36 @@
                     </div>
 
                     <div id="buttons-div">
-                        <button type="submit" class="btn btn-outline-dark buttons" id="submitForm">Submit</button>
-                        <button type="reset" class="btn btn-outline-dark buttons">Reset</button>
+                        <button type="submit" class="btn btn-outline-success buttons" id="submitForm">Submit</button>
+                        <button type="reset" class="btn btn-outline-danger buttons">Reset</button>
                     </div>
                 </form>
             </div>
             <script>
                 $("#submitForm").click(function () {
-                    alert("Project created successfully");
+                    alert("Project created successfully!");
                 });
             </script>
 
             <div class="div2 divs" style="display: none;">
+                <div>
+                    <h1 id="welcome" style="font-size: 2rem;">Applications received for your Projects</h1>
+                </div>
                 {% for projects in facid.proid %}
                 <div class="card" style="margin-bottom: 1rem;">
-                    <div class="card-header">
+                    <div class="card-header bg-primary">
                         Project name: {{projects.title}}
                     </div>
                     {% for stud in projects.users %}
                     <div class="card-body" style="padding: 0.2rem 0.5rem;">
                         Student name: {{stud.name}}<br>
                         Student email: {{stud.email}}<br>
-                        Acadeemic division: {{stud.academicdiv}}<br>
+                        Academic division: {{stud.academicdiv}}<br>
                         Semester wise marks:
                         {{stud.sem1marks}},{{stud.sem2marks}},{{stud.sem3marks}},{{stud.sem4marks}},{{stud.sem5marks}},{{stud.sem6marks}},{{stud.sem7marks}},{{stud.sem8marks}},{{stud.sem9marks}},{{stud.sem10marks}}<br>
                         Skills: {{stud.skills}}<br>
-                        SOP : {{ soparray[(projects.pid,stud.userid)] }}
-                        <hr>
+                        SOP : {{ soparray[(projects.pid,stud.userid)] }}<br>
+                        <button type="button" class="btn btn-sm btn-outline-success" style="margin: 0.5rem; margin-bottom: 1rem;">Shortlist Student</button>
                     </div>
                     {% endfor %}
                 </div>

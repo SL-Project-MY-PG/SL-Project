@@ -12,6 +12,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static',filename='favicon.ico') }}">
     <title>MY PG</title>
 </head>
 
@@ -20,7 +21,7 @@
         <div>
             <h1 class="main-heading" id="welcome">Welcome to MY PG 👋</h1>
             <h2 class="main-heading">A place where you "Meet Your Project Guide"</h2>
-            <h1 id="role">Select your role at IITB</h1>
+            <h1 id="role" class="text-primary">Select your role at IITB</h1>
         </div>
         <div id="cards-container">
             <div class="card">

@@ -12,9 +12,13 @@ body {
     height: 100vh;
     display: flex;
 
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-    background-size: 200% 200%;
-    animation: gradient 5s ease infinite;
+    /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); 
+    background-size: 400% 400%;
+    animation: gradient 30s ease infinite; */
+    background: url(../img/whitebg1.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 @keyframes gradient {
@@ -67,7 +71,7 @@ h1{
     width: fit-content;
     margin-top: 1rem;
     margin-bottom: 3rem;
-    color: white;
+    color: black;
 }
 #signupbtn
 {

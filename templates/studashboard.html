@@ -17,7 +17,7 @@
 
 <body>
     <!--Navigation bar-->
-    <div id="nav-placeholder" style="position: fixed; top: 0%; width: 100vw; height: fit-content;"></div>
+    <div id="nav-placeholder" style="position: fixed; top: 0; width: 100vw; height: fit-content; z-index: 99999 !important;"></div>
 
     <script>
         $(function () {
@@ -26,56 +26,103 @@
     </script>
     <!--end of Navigation bar-->
 
-    <div id="projcontainer">
-        <div style="height: 15vh;">
-            <h1 id="welcome" style="font-size: 2.5rem; margin-top: 2rem;">Research and Development projects at IIT
-                Bombay</h1>
+    <div id="container">
+        <div id="buttons-div" style="margin-top: 4rem;">
+            <a class="btn btn-outline-dark buttons" data-target=".div1">View all Projects</a>
+            <a class="btn btn-outline-dark buttons" data-target=".div2">Your Applications</a>
         </div>
-        <div>
-            {% for proj in projects %}
-            <div class="card" style="margin-bottom: 1rem;">
-                <div class="card-header">
-                    Title: {{proj.title}}
-                    <button data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{proj.pid}}"
-                        class="btn btn-outline-primary btn-sm" style="margin: auto 1rem;">Apply</button>
+
+        <div id="content">
+            <div class="div1 divs" id="projcontainer" style="display: none;">
+
+                <div>
+                    <h1 id="welcome" style="font-size: 2rem;">Research and Development projects at IIT Bombay</h1>
                 </div>
-                <div class="card-body" style="padding: 0.2rem 0.5rem;">
-                    Faculty name: {{proj.facultyname}}<br>
-                    Stream: {{proj.stream}}<br>
-                    Description: {{proj.description}}<br>
-                    Maximum no. of students: {{proj.maxnostu}}<br>
-                    Requisities: {{proj.requisites}}
-                    
-                </div>
-            </div>
-            <form action="{{url_for('applyforProject',data= stud.userid)}}" method="post">
-            <div class="modal fade" id="staticBackdrop_{{proj.pid}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title fs-5" id="staticBackdropLabel">Enter your statement of purpose (SOP)
-                            </h2>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div>
+                    {% for proj in projects %}
+                    <div class="card" style="margin-bottom: 1rem;">
+                        <div class="card-header bg-primary">
+                            Title: {{proj.title}}
                         </div>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <textarea class="form-control" name="sop" id="sop" rows="10"></textarea>
-                            </div>
-                            <!-- <input type="number" name="projectid" value="{{proj.pid}}"> -->
-                            <script>console.log("{{proj.pid}}")</script>
-                            <input type="text" name="projectid" style="display: none;" value="{{proj.pid}}">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="card-body" style="padding: 0.2rem 0.5rem;">
+                            Faculty name: {{proj.facultyname}}<br>
+                            Stream: {{proj.stream}}<br>
+                            Description: {{proj.description}}<br>
+                            Maximum no. of students: {{proj.maxnostu}}<br>
+                            Requisities: {{proj.requisites}}<br>
+                            <button data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{proj.pid}}"
+                                class="btn btn-outline-success btn-sm" style="margin: 0.5rem;">Apply</button>
                         </div>
                     </div>
+                    <form action="{{url_for('applyforProject',data= stud.userid)}}" method="post">
+                        <div class="modal fade" id="staticBackdrop_{{proj.pid}}" data-bs-backdrop="static"
+                            data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2 class="modal-title fs-5" id="staticBackdropLabel">Enter your statement of
+                                            purpose (SOP)
+                                        </h2>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <textarea class="form-control" name="sop" id="sop" rows="10"></textarea>
+                                        </div>
+                                        <!-- <input type="number" name="projectid" value="{{proj.pid}}"> -->
+                                        <script>console.log("{{proj.pid}}")</script>
+                                        <input type="text" name="projectid" style="display: none;" value="{{proj.pid}}">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" id="submitForm"
+                                            class="btn btn-outline-success">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    {% endfor %}
                 </div>
+                <script>
+                    $("#submitForm").click(function () {
+                        alert("Applied successfully!");
+                    });
+                </script>
             </div>
-        </form>
-            {% endfor %}
+
+            <div class="div2 divs" style="display: none;">
+                <div>
+                    <h1 id="welcome" style="font-size: 2rem;">Your Project applications</h1>
+                </div>
+                {% for proj in projects %}
+                <div class="card" style="margin-bottom: 1rem;">
+                    <div class="card-header bg-primary">
+                        Title: {{proj.title}}
+                    </div>
+                    <div class="card-body" style="padding: 0.2rem 0.5rem;">
+                        Faculty name: {{proj.facultyname}}<br>
+                        Stream: {{proj.stream}}<br>
+                        Description: {{proj.description}}<br>
+                        Maximum no. of students: {{proj.maxnostu}}<br>
+                        Requisities: {{proj.requisites}}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.buttons').on('click', function () {
+                var target = $(this).data('target');
+                $('.divs').not(target).slideUp();
+                $(target).slideDown();
+            });
+        });
+    </script>
 
     <!-- Modal -->
     <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

@@ -37,6 +37,10 @@ with app.app_context():
 def index():
     return render_template("index.html")
 
+@app.route("/static/favicon.ico")
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico',mimetype='image/vnd.microsoft.icon')
+
 @app.route("/signinStudent", methods = ['GET'])
 def signinStudent():
     return render_template("signinstud.html")
@@ -145,7 +149,13 @@ def submitProject():
         pro=Project(ptitle=title,desc=description,stream=stream,facultyname=facu,maxnostu=maxstu,requisites=prereq,fac=faci)
         db.session.add(pro)
         db.session.commit()
-        return render_template("facdashboard.html", facid=faci)
+        ab=db.session.query(Faculty).filter_by(userid=faci).first()
+        sopsarray=dict()
+        for projects in ab.proid:       #For each project of faculty we extract student.
+            sops=db.session.query(projectdetails).filter_by(project_id=projects.pid).all()
+            for i in sops:
+                sopsarray[(i[0],i[1])]=i[2]
+        return render_template('facdashboard.html',facid=ab,soparray=sopsarray)
     else:
         return render_template("index.html")
 
