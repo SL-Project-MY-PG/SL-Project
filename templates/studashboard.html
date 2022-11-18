@@ -96,7 +96,7 @@
                 <div>
                     <h1 id="welcome" style="font-size: 2rem;">Your Project applications</h1>
                 </div>
-                {% for proj in projects %}
+                {% for proj in stud.projects %}
                 <div class="card" style="margin-bottom: 1rem;">
                     <div class="card-header bg-primary">
                         Title: {{proj.title}}
@@ -106,7 +106,12 @@
                         Stream: {{proj.stream}}<br>
                         Description: {{proj.description}}<br>
                         Maximum no. of students: {{proj.maxnostu}}<br>
-                        Requisities: {{proj.requisites}}
+                        Requisities: {{proj.requisites}}<br>
+                        {% if soparray[(proj.pid,stud.userid)][1]==1 %}
+                        Shortlisting Status : Selected
+                        {% else %}
+                        Shortlisting Status : Not Selected
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}

@@ -7,10 +7,9 @@ import smtplib
 import requests
 import string
 import random
-# from werkzeug.utils import secure_filename
 import os
 from database import db,User,Faculty,Project,projectdetails
-# from flask_mail import Mail
+
 
 
 app=Flask(__name__)
@@ -19,14 +18,6 @@ app.config['SQLALCHEMY_DATABASE_URI']='postgresql://euagmhwjjvvmlz:07ac7058827bc
 #app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:mypg@localhost/mypg'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-# app.config.update(
-#     MAIL_SERVER = 'smtp.gmail.com',
-#     MAIL_PORT = '465',
-#     MAIL_USE_SSL = True,
-#     MAIL_USERNAME = "psp51790@gmail.com",
-#     MAIL_PASSWORD=  "ps*123456"
-# )
-# mail = Mail(app)
 
 
 db.init_app(app)
@@ -79,7 +70,12 @@ def loginStudent():
             for i in range(len(a.projects)):
                 if a.projects[i] in getprojinfo:
                     getprojinfo.remove(a.projects[i])
-            return render_template('studashboard.html', projects=getprojinfo,stud=a)
+        sopsarray=dict()
+        for projects in a.projects:       #For each project of faculty we extract student.
+            sops=db.session.query(projectdetails).filter_by(project_id=projects.pid).all()
+            for i in sops:
+                sopsarray[(i[0],i[1])]=sopsarray[(i[0],i[1])]=[i[2],i[3]]
+            return render_template('studashboard.html', projects=getprojinfo,stud=a,soparray=sopsarray)
         else:
             return render_template('signinstud.html', message="Username/Password Incorrect")
 
@@ -119,7 +115,7 @@ def loginFaculty():
             for projects in ab.proid:       #For each project of faculty we extract student.
                 sops=db.session.query(projectdetails).filter_by(project_id=projects.pid).all()
                 for i in sops:
-                    sopsarray[(i[0],i[1])]=i[2]
+                    sopsarray[(i[0],i[1])]=[i[2],i[3]]
             return render_template('facdashboard.html',facid=ab,soparray=sopsarray)
         else:
             return render_template('signinfac.html', message="Username/Password Incorrect")
@@ -154,7 +150,7 @@ def submitProject():
         for projects in ab.proid:       #For each project of faculty we extract student.
             sops=db.session.query(projectdetails).filter_by(project_id=projects.pid).all()
             for i in sops:
-                sopsarray[(i[0],i[1])]=i[2]
+                sopsarray[(i[0],i[1])]=[i[2],i[3]]
         return render_template('facdashboard.html',facid=ab,soparray=sopsarray)
     else:
         return render_template("index.html")
@@ -166,11 +162,8 @@ def applyforProject(data):
         sop=request.form.get('sop')
         proid = request.form.get('projectid')
         #import pdb;pdb.set_trace()
-        print(proid)
-        print(sop)
         userobject=db.session.query(User).filter_by(userid=data).first()
         projectobject=db.session.query(Project).filter_by(pid=proid).first()
-        print(projectobject.proid)
         application = projectdetails.insert().values(project_id = proid,user_id = data ,SOP = sop, Shortlisted=0)
         db.session.execute(application)
         db.session.commit()
@@ -179,47 +172,31 @@ def applyforProject(data):
         for i in range(len(a.projects)):
             if a.projects[i] in getprojinfo:
                 getprojinfo.remove(a.projects[i])
-        return render_template('studashboard.html', projects=getprojinfo,stud=a)
+        sopsarray=dict()
+        for projects in a.projects:       #For each project of student we extract shortlisting.
+            sops=db.session.query(projectdetails).filter_by(project_id=projects.pid).all()
+            for i in sops:
+                sopsarray[(i[0],i[1])]=sopsarray[(i[0],i[1])]=[i[2],i[3]]
+        return render_template('studashboard.html', projects=getprojinfo,stud=a,soparray=sopsarray)
     else:
         return render_template("index.html")
 
-
-# @app.route("/signup", methods = ['GET', 'POST'])
-# def signup():
-#     if(request.method=='POST'):
-#         uname = request.form.get('uname')
-#         name = request.form.get('name')
-#         passw = request.form.get('passw')
-#         rpassw = request.form.get('rpassw')
-#         email= request.form.get('email')
-#         phno = request.form.get('phno')
-#         if passw==rpassw:
-#             user1=User(passw=passw,uName=uname,name=name,cont=phno,ema=email,descrp="Hi There I am using Fake Book")
-#             db.session.add(user1)
-#             db.session.commit()
-
-#         return "HEllo"
-
-# @app.route("/forget",methods = ['GET', 'POST'])
-# def forget():
-#     return render_template("forget.html")
-    
-# @app.route("/reset",methods = ['GET', 'POST'])  
-# def reset():
-#     uname=request.form.get('uname')
-#     email = request.form.get('email')
-#     getinfo = db.session.query(User).filter_by(uname=uname,email=email)
-#     smail="psp51790@gmail.com"
-#     if getinfo.count()==1:
-#         pas=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
-#         getinfo.passw=pas
-#         message="Hello There %s .<br>Your Password has been generated .<br>Your password is <strong>%s</strong>.<br>Please login with this password to change password"%(uname,pas)
-#         #msg=MIMEText(message,'html')
-#         db.session.commit()
-#         mail.send_message(subject="Password Generated",html=message,sender=smail,recipients = [email])
-#         return "Hello"
-#     else:
-#         return "Hi"        
+@app.route("/shortlist_student",methods=["POST"])
+def shortlist_student():
+    if request.method=='POST':
+        studid=request.form.get("studid")
+        proid=request.form.get("projectid")
+        faci=request.form.get("facid")
+        short=db.session.query(projectdetails).filter_by(project_id=proid,user_id=studid).update(dict(Shortlisted=1))
+        #db.session.add(short)
+        db.session.commit()
+        ab=db.session.query(Faculty).filter_by(userid=faci).first()
+        sopsarray=dict()
+        for projects in ab.proid:       #For each project of faculty we extract student.
+            sops=db.session.query(projectdetails).filter_by(project_id=projects.pid).all()
+            for i in sops:
+                sopsarray[(i[0],i[1])]=sopsarray[(i[0],i[1])]=[i[2],i[3]]
+        return render_template('facdashboard.html',facid=ab,soparray=sopsarray)
 
 if __name__=="__main__":
     app.run(debug=True)
