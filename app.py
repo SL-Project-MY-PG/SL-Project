@@ -70,11 +70,11 @@ def loginStudent():
             for i in range(len(a.projects)):
                 if a.projects[i] in getprojinfo:
                     getprojinfo.remove(a.projects[i])
-        sopsarray=dict()
-        for projects in a.projects:       #For each project of faculty we extract student.
-            sops=db.session.query(projectdetails).filter_by(project_id=projects.pid).all()
-            for i in sops:
-                sopsarray[(i[0],i[1])]=sopsarray[(i[0],i[1])]=[i[2],i[3]]
+            sopsarray=dict()
+            for projects in a.projects:
+                sops=db.session.query(projectdetails).filter_by(project_id=projects.pid).all()
+                for i in sops:
+                    sopsarray[(i[0],i[1])]=sopsarray[(i[0],i[1])]=[i[2],i[3]]
             return render_template('studashboard.html', projects=getprojinfo,stud=a,soparray=sopsarray)
         else:
             return render_template('signinstud.html', message="Username/Password Incorrect")
