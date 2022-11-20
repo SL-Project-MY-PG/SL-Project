@@ -14,8 +14,8 @@ from database import db,User,Faculty,Project,projectdetails
 
 app=Flask(__name__)
 app.secret_key='mypg'
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql://euagmhwjjvvmlz:07ac7058827bcbb66f09f61807631b71da95537b8b2840d0a40b0ceca1b77b88@ec2-54-163-34-107.compute-1.amazonaws.com:5432/dj5uolrhsug0j'
-#app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:mypg@localhost/mypg'
+#app.config['SQLALCHEMY_DATABASE_URI']='postgresql://euagmhwjjvvmlz:07ac7058827bcbb66f09f61807631b71da95537b8b2840d0a40b0ceca1b77b88@ec2-54-163-34-107.compute-1.amazonaws.com:5432/dj5uolrhsug0j'
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:mypg@localhost/mypg'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
@@ -190,6 +190,7 @@ def shortlist_student():
         short=db.session.query(projectdetails).filter_by(project_id=proid,user_id=studid).update(dict(Shortlisted=1))
         #db.session.add(short)
         db.session.commit()
+        print(studid,proid,faci)
         ab=db.session.query(Faculty).filter_by(userid=faci).first()
         sopsarray=dict()
         for projects in ab.proid:       #For each project of faculty we extract student.

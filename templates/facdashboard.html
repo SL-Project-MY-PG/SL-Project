@@ -96,6 +96,7 @@
                         Project name: {{projects.title}}
                     </div>
                     {% for stud in projects.users %}
+                    <form action="{{url_for('shortlist_student')}}" method="post">
                     {% if soparray[(projects.pid,stud.userid)][1]==0 %}
                     <div class="card-body" id="{{stud.userid}}" style="padding: 0.2rem 0.5rem;">
                         Student name: {{stud.name}}<br>
@@ -110,11 +111,25 @@
                         <input type="hidden" name="facid" value="{{facid.userid}}">
                         <button type="submit" class="btn btn-sm btn-outline-success" style="margin: 0.5rem; margin-bottom: 1rem;">Shortlist Student</button>
                     </div>
+                    {% else %}
+                    <div class="card-body" id="{{stud.userid}}" style="padding: 0.2rem 0.5rem;">
+                        Student name: {{stud.name}}<br>
+                        Student email: {{stud.email}}<br>
+                        Academic division: {{stud.academicdiv}}<br>
+                        Semester wise marks:
+                        {{stud.sem1marks}},{{stud.sem2marks}},{{stud.sem3marks}},{{stud.sem4marks}},{{stud.sem5marks}},{{stud.sem6marks}},{{stud.sem7marks}},{{stud.sem8marks}},{{stud.sem9marks}},{{stud.sem10marks}}<br>
+                        Skills: {{stud.skills}}<br>
+                        SOP : {{ soparray[(projects.pid,stud.userid)][0] }}<br>
+                        <input type="hidden" name="studid" value="{{stud.userid}}">
+                        <input type="hidden" name="projectid" value="{{projects.pid}}">
+                        <input type="hidden" name="facid" value="{{facid.userid}}">
+                        <button type="button" class="btn btn-sm btn-outline-success" style="margin: 0.5rem; margin-bottom: 1rem;color: green">Shortlisted</button>
+                    </div>
                     {% endif %}
+                </form>
                     {% endfor %}
                 </div>
                 {% endfor %}
-            </form>
             </div>
         </div>
     </div>
