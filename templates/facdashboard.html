@@ -34,7 +34,7 @@
 
         <div id="content">
             <div class="div1 divs" style="display: none;">
-                <form action="{{url_for('submitProject')}}" method="post">
+                <form action="{{url_for('submitProject')}}" class="formip" method="post">
                     <div>
                         <h1 id="welcome" style="font-size: 2rem;">Enter the Project details</h1>
                     </div>
@@ -89,11 +89,11 @@
                 <div>
                     <h1 id="welcome" style="font-size: 2rem;">Applications received for your Projects</h1>
                 </div>
-                <form action="{{url_for('shortlist_student')}}" method="post">
+                <!-- <form action="{{url_for('shortlist_student')}}" style="width: 90vw;" method="post"> -->
                 {% for projects in facid.proid %}
                 <div class="card" id="{{projects.pid}}" style="margin-bottom: 1rem;">
                     <div class="card-header bg-primary">
-                        Project name: {{projects.title}}
+                        <span style="color: white; font-size: 1.2rem">Title: {{projects.title}}</span>
                     </div>
                     {% for stud in projects.users %}
                     <form action="{{url_for('shortlist_student')}}" method="post">

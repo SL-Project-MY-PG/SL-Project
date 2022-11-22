@@ -1,7 +1,17 @@
 from flask_sqlalchemy import SQLAlchemy
+
+# creating sqlalchemy object
 db=SQLAlchemy()
-# follows=db.Table('follows',db.Column('uid_who',db.Integer,db.ForeignKey('user.uid'),primary_key=True),db.Column('uid_whom',db.Integer,db.ForeignKey('user.uid'),primary_key=True))
-projectdetails=db.Table('project_application',db.Column('project_id',db.Integer,db.ForeignKey('project.pid'),primary_key=True),db.Column('user_id',db.Integer,db.ForeignKey('user.userid'),primary_key=True),db.Column('SOP',db.String(20000)),db.Column('Shortlisted',db.Integer))
+
+
+# Table for relationship between project and student which also contains SOP and Shorlisted column
+projectdetails=db.Table('project_application',\
+db.Column('project_id',db.Integer,db.ForeignKey('project.pid'),primary_key=True),\
+db.Column('user_id',db.Integer,db.ForeignKey('user.userid'),primary_key=True),\
+db.Column('SOP',db.String(20000)),db.Column('Shortlisted',db.Integer))
+
+
+#Table for storing student details
 class User(db.Model):
     __tablename__="user"
     userid=db.Column(db.Integer,primary_key=True, unique=True,autoincrement=True)
@@ -40,6 +50,7 @@ class User(db.Model):
         self.skills=skills
 
         
+#Table for storing faculty members details
 class Faculty(db.Model):
     __tablename__="faculty"
     userid=db.Column(db.Integer,primary_key=True, unique=True,autoincrement=True)
@@ -48,8 +59,6 @@ class Faculty(db.Model):
     passw=db.Column(db.String(120), nullable=False)
     academicdiv=db.Column(db.String(256))
     proid=db.relationship('Project',backref='proid')
-    #posts=db.relationship('Post',backref='user')
-    #pid = db.relationship("projectdetails", backref=backref("project application", uselist=False))
 
 
     def __init__(self,passw,name,email,academic):
@@ -57,8 +66,11 @@ class Faculty(db.Model):
         self.email=email
         self.passw=passw
         self.academicdi=academic
-        
+
+
+#Table for storing Project details
 class Project(db.Model):
+    
     __tablename__="project"
     pid=db.Column(db.Integer,primary_key=True, unique=True,autoincrement=True)
     title=db.Column(db.String(120),nullable=False)
@@ -68,11 +80,6 @@ class Project(db.Model):
     maxnostu=db.Column(db.String(5))
     requisites=db.Column(db.String(512))
     facid=db.Column(db.Integer,db.ForeignKey('faculty.userid'),nullable=False)
-    # likes=db.Column(db.Integer)
-    # active=db.Column(db.Integer)
-    #uid=db.Column(db.Integer,db.ForeignKey('user.uid'),nullable=False)
-    #lik=db.relationship('user',secondary=liketab)
-    #pid = db.relationship("projectdetails", backref="project application", uselist=False)
 
 
     def __init__(self, ptitle,desc,stream,facultyname,maxnostu,requisites,fac):
@@ -84,6 +91,3 @@ class Project(db.Model):
         self.requisites=requisites
         self.facid=fac
 
-
-
-    
