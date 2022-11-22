@@ -1,4 +1,4 @@
-# importing necessary modules
+'''importing necessary modules'''
 
 from flask import Flask,render_template,request,session,flash,redirect,url_for,send_from_directory
 from email.mime.text import MIMEText
@@ -16,7 +16,7 @@ from database import db,User,Faculty,Project,projectdetails
 import re
 
 
-# setting configuration for flask app
+'''setting configuration for flask app'''
 app=Flask(__name__)
 app.secret_key='mypg'
 
@@ -34,17 +34,17 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
 
-# initializing flask mail object
+''' initializing flask mail object'''
 mail = Mail(app)
 
 
-# creating database 
+''' creating database '''
 db.init_app(app)
 with app.app_context():
     db.create_all()
 
 
-# rendering pages using flask
+''' rendering pages using flask '''
 @app.route("/",methods=['GET', 'POST'])
 def index():
     return render_template("index.html")
@@ -78,7 +78,7 @@ def devs():
     return render_template("devs.html")
 
 
-# url for student to sign in
+''' url for student to sign in'''
 @app.route("/loginStudent", methods = ['POST'])
 def loginStudent():
     if(request.method=='POST'):
@@ -105,7 +105,7 @@ def loginStudent():
             return render_template('signinstud.html', message="Username/Password Incorrect")
 
 
-# url for student sign up
+''' url for student sign up'''
 @app.route("/signupS", methods = ['POST'])
 def signupS():
     if(request.method=='POST'):
@@ -151,7 +151,7 @@ def signupS():
             return render_template("signinstud.html",message="Password too weak! Cannot create account")
 
 
-# url for faculty sign in     
+'''url for faculty sign in '''
 @app.route("/loginFaculty", methods = ['POST'])
 def loginFaculty():
     if(request.method=='POST'):
@@ -172,7 +172,7 @@ def loginFaculty():
             return render_template('signinfac.html', message="Username/Password Incorrect")
 
 
-# url for faculty sign up
+''' url for faculty sign up'''
 @app.route("/signupF", methods = ['POST'])
 def signupF():
     if(request.method=='POST'):
@@ -208,7 +208,7 @@ def signupF():
             return render_template("signinfac.html",message="Password too weak! Cannot create account")
 
 
-# url for faculty to create a new project
+''' url for faculty to create a new project'''
 @app.route("/submitProject", methods = ['POST'])
 def submitProject():
     if(request.method=='POST'):
@@ -234,7 +234,7 @@ def submitProject():
         return render_template("index.html")
 
 
-# url for student to apply to a project
+''' url for student to apply to a project'''
 @app.route("/applyforProject/<data>", methods = ['POST'])
 def applyforProject(data):
     if(request.method=='POST'):
@@ -264,7 +264,7 @@ def applyforProject(data):
         return render_template("index.html")
 
 
-# url for faculty to shortlist a student 
+''' url for faculty to shortlist a student '''
 @app.route("/shortlist_student",methods=["POST"])
 def shortlist_student():
     if request.method=='POST':
@@ -291,7 +291,7 @@ def forget(role):
     return render_template("forget.html",role=role)
 
 
-# url to reset and send the password to user email    
+''' url to reset and send the password to user email '''
 @app.route("/reset",methods = ['GET', 'POST'])  
 def reset():
     email = request.form.get('email')
@@ -322,7 +322,7 @@ def reset():
         else:
             return render_template('signinfac.html', message="Some error occured!")
 
-# main function
+''' main function'''
 if __name__=="__main__":
     app.run(debug=True)
 
