@@ -33,6 +33,7 @@
             <input type="email" class="form-control" id="exampleInputEmail1" name="email" required pattern=".+@iitb.ac.in"
                 oninvalid="this.setCustomValidity('Only IITB LDAP email ID can be used for login')"
                 oninput="this.setCustomValidity('')" aria-describedby="emailHelp">
+            <input type="hidden" name="role" value="{{role}}">
         </div>
         <div class="buttons-div" style="margin-bottom: 1rem;">
             <div style="width: fit-content; margin: auto auto">

@@ -17,8 +17,9 @@
 
 <body>
     <!--Navigation bar-->
-    <div id="nav-placeholder" style="position: fixed; top: 0; width: 100vw; height: fit-content; z-index: 99999 !important;"></div>
-    
+    <div id="nav-placeholder"
+        style="position: fixed; top: 0; width: 100vw; height: fit-content; z-index: 99999 !important;"></div>
+
     <script>
         $(function () {
             $("#nav-placeholder").load("{{url_for('nav')}}");
@@ -28,23 +29,31 @@
 
     <form action="{{url_for('loginFaculty')}}" method="post">
         <h1 style="margin-bottom: 2rem;" id="welcome">Welcome Faculty !</h1>
-        
+
         {% if message == "Username/Password Incorrect" %}
-            <h4 style="margin: auto auto; margin-bottom: 2rem; width: fit-content; color: red;">{{message}}</h4> 
+        <h4 style="margin: auto auto; margin-bottom: 2rem; width: fit-content; color: red;">{{message}}</h4>
         {% elif message == "Account created. Now you can Login" %}
-            <h4 style="margin: auto auto; margin-bottom: 2rem; width: fit-content; color: green;">{{message}}</h4>
+        <h4 style="margin: auto auto; margin-bottom: 2rem; width: fit-content; color: green;">{{message}}</h4>
+        {% elif message == "Password too weak! Cannot create account" %}
+        <h4 style="margin: auto auto; margin-bottom: 2rem; width: fit-content; color: orange;">{{message}}</h4>
+        {% elif message == "A new password has been sent to your email ID" %}
+        <h4 style="margin: auto auto; margin-bottom: 2rem; width: fit-content; color: blue;">{{message}}</h4>
+        {% elif message == "Some error occured!" %}
+        <h4 style="margin: auto auto; margin-bottom: 2rem; width: fit-content; color: blue;">{{message}}</h4>
         {% endif %}
 
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Enter your IITB LDAP email ID</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" required pattern=".+@iitb.ac.in"
+            <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" required
+                pattern=".+@iitb.ac.in"
                 oninvalid="this.setCustomValidity('Only IITB LDAP email ID can be used for login')"
                 oninput="this.setCustomValidity('')" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Enter your Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" name="exampleInputPassword1" required>
-            <a style="color: black;" href="{{url_for('forget')}}">Forgot Password?</a>
+            <input type="password" class="form-control" id="exampleInputPassword1" name="exampleInputPassword1"
+                required>
+            <a style="color: black;" href="{{url_for('forget',role=1)}}">Forgot Password?</a>
         </div>
         <div id="buttons-div">
             <button type="submit" class="btn btn-outline-success buttons">Submit</button>

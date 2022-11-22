@@ -1,6 +1,6 @@
 # importing necessary modules
 
-from flask import Flask,render_template,request,session,flash,redirect,url_for
+from flask import Flask,render_template,request,session,flash,redirect,url_for,send_from_directory
 from email.mime.text import MIMEText
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
@@ -19,10 +19,13 @@ import re
 # setting configuration for flask app
 app=Flask(__name__)
 app.secret_key='mypg'
+
 app.config['SQLALCHEMY_DATABASE_URI']='postgresql://euagmhwjjvvmlz:07ac7058827bcbb66f09f61807631b71da95537b8b2840d0a40b0ceca1b77b88@ec2-54-163-34-107.compute-1.amazonaws.com:5432/dj5uolrhsug0j'
 #app.config['SQLALCHEMY_DATABASE_URI']='postgresql://postgres:mypg@localhost/mypg'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
 app.config['MAIL_SERVER']='smtp.office365.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = 'sllab123@outlook.com'
@@ -82,6 +85,7 @@ def loginStudent():
         email = request.form.get('exampleInputEmail1')
         passw = request.form.get('exampleInputPassword1')
         getinfo = db.session.query(User).filter_by(email=email,passw=passw).count()
+
         if getinfo==1:
             session['logged_in'] = True
             getprojinfo=db.session.query(Project).all()
@@ -96,6 +100,7 @@ def loginStudent():
                 for i in sops:
                     sopsarray[(i[0],i[1])]=sopsarray[(i[0],i[1])]=[i[2],i[3]]
             return render_template('studashboard.html', projects=getprojinfo,stud=a,soparray=sopsarray)
+
         else:
             return render_template('signinstud.html', message="Username/Password Incorrect")
 
@@ -153,6 +158,7 @@ def loginFaculty():
         email = request.form.get('exampleInputEmail1')
         passw = request.form.get('exampleInputPassword1')
         getinfo = db.session.query(Faculty).filter_by(email=email,passw=passw).count()
+
         if getinfo==1:
             session['logged_in'] = True
             ab=db.session.query(Faculty).filter_by(email=email,passw=passw).first()
@@ -218,6 +224,7 @@ def submitProject():
         db.session.commit()
         ab=db.session.query(Faculty).filter_by(userid=faci).first()
         sopsarray=dict()
+
         for projects in ab.proid:       #For each project of faculty we extract student.
             sops=db.session.query(projectdetails).filter_by(project_id=projects.pid).all()
             for i in sops:
@@ -241,11 +248,13 @@ def applyforProject(data):
         db.session.commit()
         getprojinfo=db.session.query(Project).all()
         a = db.session.query(User).filter_by(userid=data).first()
+
         for i in range(len(a.projects)):
             if a.projects[i] in getprojinfo:
                 getprojinfo.remove(a.projects[i])
 
         sopsarray=dict()
+
         for projects in a.projects:       #For each project of student we extract shortlisting.
             sops=db.session.query(projectdetails).filter_by(project_id=projects.pid).all()
             for i in sops:
@@ -268,6 +277,7 @@ def shortlist_student():
         print(studid,proid,faci)
         ab=db.session.query(Faculty).filter_by(userid=faci).first()
         sopsarray=dict()
+
         for projects in ab.proid:       #For each project of faculty we extract student.
             sops=db.session.query(projectdetails).filter_by(project_id=projects.pid).all()
             for i in sops:
@@ -275,17 +285,25 @@ def shortlist_student():
         return render_template('facdashboard.html',facid=ab,soparray=sopsarray)
 
 
-# url for forget password functionality
-@app.route("/forget",methods = ['GET', 'POST'])
-def forget():
-    return render_template("forget.html")
+''' url for forget password functionality '''
+@app.route("/forget/<role>",methods = ['GET', 'POST'])
+def forget(role):
+    return render_template("forget.html",role=role)
 
 
 # url to reset and send the password to user email    
 @app.route("/reset",methods = ['GET', 'POST'])  
 def reset():
     email = request.form.get('email')
-    getinfo = db.session.query(User).filter_by(email=email)
+    role=request.form.get('role')
+
+    if role=="0":
+        getinfo = db.session.query(User).filter_by(email=email)
+    elif role=="1":
+        getinfo = db.session.query(Faculty).filter_by(email=email)
+    else:
+        return render_template('signinstud.html', message="Some error occured!")
+
     smail="sllab123@outlook.com"
     if getinfo.count()==1:
         pas=''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(6))
@@ -294,10 +312,15 @@ def reset():
         #db.session.add(getinfo)
         db.session.commit()
         mail.send_message(subject="Password Generated",html=message,sender=smail,recipients = [email])
-        return render_template('signinstud.html', message="A new password has been sent to your email ID")
+        if role=="0":
+            return render_template('signinstud.html', message="A new password has been sent to your email ID")
+        if role=="1":
+            return render_template('signinfac.html', message="A new password has been sent to your email ID")
     else:
-        return render_template('signinstud.html', message="Some error occured!")  
-
+        if role=="0":
+            return render_template('signinstud.html', message="Some error occured!")
+        else:
+            return render_template('signinfac.html', message="Some error occured!")
 
 # main function
 if __name__=="__main__":
